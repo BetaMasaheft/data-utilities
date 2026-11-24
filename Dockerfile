@@ -10,7 +10,7 @@ RUN ls -l /x86_64-unknown-linux-musl/release
 
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install -y curl zip unzip default-jre libsaxonb-java libc6
+RUN export DEBIAN_FRONTEND="noninteractive" && apt-get update && apt-get install -y curl zip unzip default-jre libsaxonb-java libc6
 
 COPY --from=builder /x86_64-unknown-linux-musl/release/data-utilities /
 
