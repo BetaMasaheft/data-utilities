@@ -1,16 +1,20 @@
-# syntax = docker/dockerfile:1.2
-FROM rust:bullseye AS builder
+FROM messense/rust-musl-cross:x86_64-musl AS builder
 
-RUN apt-get update && apt-get install -y default-jre libsaxonb-java libc6
+COPY . .
 
-# Download and compile the Rust executable for the conceptual mapper
-WORKDIR /home/work/conceptual-mapper
-RUN curl https://gitlab.com/claudius-teodorescu/conceptual-mapper/-/package_files/335497958/download -o conceptual-mapper-bin && chmod +x conceptual-mapper-bin
+RUN rustup target add x86_64-unknown-linux-musl
 
-RUN cargo build -q --bin bm-data-service --target-dir ./target --release --target x86_64-unknown-linux-gnu &&\
-    cp ./target/x86_64-unknown-linux-gnu/release/bm-data-service /home/ubuntu
+RUN cargo build --bin data-utilities --release --target-dir / --target x86_64-unknown-linux-musl
 
+RUN ls -l /x86_64-unknown-linux-musl/release
 
-LABEL maintainer Claudius Teodorescu <claudius.teodorescu@gmail.com>
+FROM ubuntu:latest
 
-# sudo docker build -t data-utilities .
+RUN apt-get update && apt-get install -y curl zip unzip default-jre libsaxonb-java libc6
+
+COPY --from=builder /x86_64-unknown-linux-musl/release/data-utilities /
+
+LABEL org.opencontainers.image.authors="Claudius Teodorescu <claudius.teodorescu@gmail.com>"
+
+# sudo docker build --progress=plain --no-cache -t data-utilities .
+# sudo docker run -a stderr data-utilities:latest
