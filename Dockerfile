@@ -14,6 +14,9 @@ RUN apt-get update && apt-get install -y curl zip unzip default-jre libsaxonb-ja
 
 COPY --from=builder /x86_64-unknown-linux-musl/release/data-utilities /
 
+LABEL org.opencontainers.image.source=https://github.com/BetaMasaheft/data-utilities
+LABEL org.opencontainers.image.description="Docker container for BM data utilities"
+LABEL org.opencontainers.image.licenses=MIT
 LABEL org.opencontainers.image.authors="Claudius Teodorescu <claudius.teodorescu@gmail.com>"
 
 # sudo docker build --progress=plain --no-cache -t data-utilities .
