@@ -1,1 +1,1 @@
-Various utilities needed form processing the BM data.
+Various utilities needed for processing the BM data.
