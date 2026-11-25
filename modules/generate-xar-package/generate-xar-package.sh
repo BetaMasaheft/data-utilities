@@ -20,40 +20,40 @@ echo "----- Unarchive the expanded data"
 cd $public_dir && unzip -q main.zip && cd ..
 
 echo "----- Process the files in 'authority-files' folder"
-time ./data-utilities conceptual-mapper $config_dir/authority-files.toml
-time ./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/authority-files/ $output_rdf_dir/authority-files/
+./data-utilities conceptual-mapper $config_dir/authority-files.toml
+./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/authority-files/ $output_rdf_dir/authority-files/
 
 echo "----- Process the files in 'institutions' folder"
-time ./data-utilities conceptual-mapper $config_dir/institutions.toml
-time ./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/institutions/ $output_rdf_dir/institutions/
+./data-utilities conceptual-mapper $config_dir/institutions.toml
+./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/institutions/ $output_rdf_dir/institutions/
 
 echo "----- Process the files in 'manuscripts' folder"
-time ./data-utilities conceptual-mapper $config_dir/manuscripts.toml
-time ./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/manuscripts/ $output_rdf_dir/manuscripts/
+./data-utilities conceptual-mapper $config_dir/manuscripts.toml
+./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/manuscripts/ $output_rdf_dir/manuscripts/
 
 echo "----- Process the files in 'narratives' folder"
-time ./data-utilities conceptual-mapper $config_dir/narratives.toml
-time ./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/narratives/ $output_rdf_dir/narratives/
+./data-utilities conceptual-mapper $config_dir/narratives.toml
+./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/narratives/ $output_rdf_dir/narratives/
 
 echo "----- Process the files in 'persons' folder"
-time ./data-utilities conceptual-mapper $config_dir/persons.toml
-time ./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/persons/ $output_rdf_dir/persons/
+./data-utilities conceptual-mapper $config_dir/persons.toml
+./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/persons/ $output_rdf_dir/persons/
 
 echo "----- Process the files in 'places' folder"
-time ./data-utilities conceptual-mapper $config_dir/places.toml
-time ./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/places/ $output_rdf_dir/places/
+./data-utilities conceptual-mapper $config_dir/places.toml
+./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/places/ $output_rdf_dir/places/
 
 echo "----- Process the files in 'studies' folder"
 echo "----- Process the files in 'works' folder"
-#time ./data-utilities conceptual-mapper $config_dir/studies.toml
-#time ./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/studies/ $output_rdf_dir/studies/
+#./data-utilities conceptual-mapper $config_dir/studies.toml
+#./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/studies/ $output_rdf_dir/studies/
 # Remove this when using onceptual-mapper
 flat_tei_files_dir=$public_dir/flat-tei-files
 flat_rdf_files_dir=$public_dir/flat-rdf-files
 mkdir -p $flat_tei_files_dir
 mkdir -p $flat_rdf_files_dir
-time ./data-utilities unzip-files-to-single-dir "$public_dir/main.zip" "$flat_tei_files_dir" config/ scripts/ test/ authority-files/ corpora/ institutions/ manuscripts/ narratives/ persons/ places/
-time saxonb-xslt -s:"$flat_tei_files_dir" -o:"$flat_rdf_files_dir" -xsl:"$generate_xar_package_dir/data2rdf.xsl"
+./data-utilities unzip-files-to-single-dir "$public_dir/main.zip" "$flat_tei_files_dir" config/ scripts/ test/ authority-files/ corpora/ institutions/ manuscripts/ narratives/ persons/ places/
+saxonb-xslt -s:"$flat_tei_files_dir" -o:"$flat_rdf_files_dir" -xsl:"$generate_xar_package_dir/data2rdf.xsl"
 for file in $flat_rdf_files_dir/*.xml ;
 do
   mv "$file" "${file%.xml}.rdf"
@@ -63,8 +63,8 @@ rm -rf $flat_tei_files_dir
 rm -rf $flat_rdf_files_dir
 # end of Remove this when using onceptual-mapper
 
-#time ./data-utilities conceptual-mapper $config_dir/works.toml
-#time ./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/works/ $output_rdf_dir/works/
+#./data-utilities conceptual-mapper $config_dir/works.toml
+#./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/works/ $output_rdf_dir/works/
 
 echo "Copy the xar package configuration files"
 cp $generate_xar_package_dir/expath-pkg.xml $output_rdf_dir
