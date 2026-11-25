@@ -12,6 +12,9 @@ jobs:
     if: github.ref == 'refs/heads/main'
     container:
           image: ghcr.io/betamasaheft/data-utilities:main
+          credentials:
+            username: ${{ github.actor }}
+            password: ${{ secrets.DEPLOY_PAT }}          
     permissions:
       contents: read
       packages: write
