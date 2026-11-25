@@ -1,0 +1,7 @@
+mapping_file_path = "/builds/claudius-teodorescu/bm-data-service/modules/deploy-rdf-xar/mapping/authority-files.ttl"
+output_file_path = "/builds/claudius-teodorescu/bm-data-service/public/turtle/authority-files/"
+
+[sources]
+"input.xml" = "/builds/claudius-teodorescu/bm-data-service/public/expanded-main/authority-files/**/*.xml"
+
+# ./modules/tei-to-rdf-void/tei-to-rdf-void.sh

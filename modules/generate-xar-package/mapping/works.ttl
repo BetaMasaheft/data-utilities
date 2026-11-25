@@ -1,0 +1,58 @@
+@prefix rml: <http://w3id.org/rml/> .
+@prefix rdf: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+
+@base <https://betamasaheft.eu> .
+
+<mapping-1> a rml:TriplesMap ;
+rml:logicalSource [
+    rml:source "input.xml" ;
+    rml:iterator "/" ;
+    rml:referenceFormulation [ a rml:XPathReferenceFormulation ;
+       rml:namespace [ a rml:Namespace ;
+         rml:namespacePrefix "tei" ;
+         rml:namespaceURL "http://www.tei-c.org/ns/1.0" ;
+       ];    
+     ] ;
+] ;
+rml:subjectMap [
+    rml:template "https://betamasaheft.eu/{/tei:TEI/@xml:id}" ;
+    rml:LogicalTargetMap [
+      a rml:LogicalTargetMap ;
+      rml:template "{/tei:TEI/@xml:id}.ttl" ;
+    ] ;    
+] ;
+.
+
+# mappings for language elements
+<mapping-2> a rml:TriplesMap ;
+rml:logicalSource [
+    rml:source "input.xml" ;
+    rml:iterator "/tei:TEI/tei:teiHeader/tei:profileDesc/tei:langUsage/tei:language" ;
+    rml:referenceFormulation [ a rml:XPathReferenceFormulation ;
+       rml:namespace [ a rml:Namespace ;
+         rml:namespacePrefix "tei" ;
+         rml:namespaceURL "http://www.tei-c.org/ns/1.0" ;
+       ];    
+     ] ;
+] ;
+rml:subjectMap [
+    rml:template "https://betamasaheft.eu/{/tei:TEI/@xml:id}" ;
+    rml:LogicalTargetMap [
+      a rml:LogicalTargetMap ;
+      rml:template "{/tei:TEI/@xml:id}.ttl" ;
+    ] ;    
+] ;
+rml:predicateObjectMap [
+    rml:predicate dc:language ;
+    rml:objectMap [
+        rml:reference "@ident" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+.

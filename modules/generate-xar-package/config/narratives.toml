@@ -1,0 +1,5 @@
+mapping_file_path = "/builds/claudius-teodorescu/bm-data-service/modules/deploy-rdf-xar/mapping/narratives.ttl"
+output_file_path = "/builds/claudius-teodorescu/bm-data-service/public/turtle/narratives/"
+
+[sources]
+"input.xml" = "/builds/claudius-teodorescu/bm-data-service/public/expanded-main/narratives/**/*.xml"

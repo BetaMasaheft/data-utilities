@@ -1,0 +1,334 @@
+@prefix rml: <http://w3id.org/rml/> .
+@prefix rdf: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix sdc: <https://w3id.org/sdc/ontology#> .
+@prefix betmas: <http://kuberam.ro/ns/kert/> .
+
+@base <https://betamasaheft.eu> .
+
+# main mappings
+<mapping-1> a rml:TriplesMap ;
+rml:logicalSource [
+    rml:source "input.xml" ;
+    rml:iterator "/" ;
+    rml:referenceFormulation [ a rml:XPathReferenceFormulation ;
+       rml:namespace [ a rml:Namespace ;
+         rml:namespacePrefix "tei" ;
+         rml:namespaceURL "http://www.tei-c.org/ns/1.0" ;
+       ];    
+     ] ;
+] ;
+rml:subjectMap [
+    rml:template "https://betamasaheft.eu/{/tei:TEI/@xml:id}" ;
+    rml:LogicalTargetMap [
+      a rml:LogicalTargetMap ;
+      rml:template "{/tei:TEI/@xml:id}.ttl" ;
+    ] ;    
+] ;
+rml:predicateObjectMap [
+    rml:predicate dcterms:license ;
+    rml:objectMap [
+        rml:constant <http://opendatacommons.org/licenses/odbl/1.0/> ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate rdf:type ;
+    rml:objectMap [
+        rml:constant <https://betamasaheft.eu/mss> ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate dcterms:source ;
+    rml:objectMap [
+        rml:template "https://betamasaheft.eu/tei/{/tei:TEI/@xml:id}.xml" ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate foaf:homepage ;
+    rml:objectMap [
+        rml:template "https://betamasaheft.eu/manuscripts/{concat(/tei:TEI/@xml:id, '/main')}" ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate crm:P48_has_preferred_identifier ;
+    rml:objectMap [
+        rml:reference "/tei:TEI/@xml:id" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate dcterms:publisher ;
+    rml:objectMap [
+        rml:reference "normalize-space(/tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:publisher)" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate dcterms:isPartOf ;
+    rml:objectMap [
+        rml:constant <https://betamasaheft.eu> ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate dcterms:bibliographicCitation ;
+    rml:objectMap [
+        rml:reference "/tei:TEI/@xml:id" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate dc:format ;
+    rml:objectMap [
+        rml:constant "xml" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate rdf:type ;
+    rml:objectMap [
+        rml:constant <https://w3id.org/sdc/ontology#UniProd> ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate rdf:type ;
+    rml:objectMap [
+        rml:constant <https://w3id.org/sdc/ontology#UniCirc> ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate sdc:hasCertainty ;
+    rml:objectMap [
+        rml:constant <https://w3id.org/sdc/ontology#Certain> ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate betmas:hasTotalLeaves ;
+    rml:objectMap [
+        rml:reference "normalize-space(/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc/tei:extent/tei:measure)" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate crm:P46_is_composed_of ;
+    rml:objectMap [
+        rml:template "https://betamasaheft.eu/vocabularies/material.html#{normalize-space(/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:physDesc/tei:objectDesc/tei:supportDesc/tei:support/tei:material/@key)}" ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate rdf:type ;
+    rml:objectMap [
+        rml:template "https://betamasaheft.eu/ontology/{normalize-space(/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:physDesc/tei:objectDesc/@form)}" ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate dcterms:hasPart ;
+    rml:objectMap [
+        rml:template "https://betamasaheft.eu/{concat(/tei:TEI/@xml:id, '/hand/', /tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:physDesc/tei:handDesc/tei:handNote/@xml:id)}" ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate dcterms:hasPart ;
+    rml:objectMap [
+        rml:template "https://betamasaheft.eu/{concat(/tei:TEI/@xml:id, '/binding/', /tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:physDesc/tei:bindingDesc/tei:binding/tei:decoNote/@xml:id)}" ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+.
+
+# mappings for msIdentifier[tei:repository/@ref != '' and starts-with(tei:repository/@ref, 'https')] elements
+<mapping-2> a rml:TriplesMap ;
+rml:logicalSource [
+    rml:source "input.xml" ;
+    rml:iterator "/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier[tei:repository/@ref != '' and starts-with(tei:repository/@ref, 'https')]" ;
+    rml:referenceFormulation [ a rml:XPathReferenceFormulation ;
+       rml:namespace [ a rml:Namespace ;
+         rml:namespacePrefix "tei" ;
+         rml:namespaceURL "http://www.tei-c.org/ns/1.0" ;
+       ];    
+     ] ;
+] ;
+rml:subjectMap [
+    rml:template "https://betamasaheft.eu/{/tei:TEI/@xml:id}" ;
+    rml:LogicalTargetMap [
+      a rml:LogicalTargetMap ;
+      rml:template "{/tei:TEI/@xml:id}.ttl" ;
+    ] ;    
+] ;
+rml:predicateObjectMap [
+    rml:predicate crm:P1_is_identified_by ;
+    rml:objectMap [
+        rml:reference "normalize-space(tei:idno)" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate crm:P55_has_current_location ;
+    rml:objectMap [
+        rml:reference "normalize-space(tei:repository/@ref)" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+.
+
+# mappings for msIdentifier[tei:repository/@ref != '' and not(starts-with(tei:repository/@ref, 'https'))] elements
+<mapping-3> a rml:TriplesMap ;
+rml:logicalSource [
+    rml:source "input.xml" ;
+    rml:iterator "/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier[tei:repository/@ref != '' and not(starts-with(tei:repository/@ref, 'https'))]" ;
+    rml:referenceFormulation [ a rml:XPathReferenceFormulation ;
+       rml:namespace [ a rml:Namespace ;
+         rml:namespacePrefix "tei" ;
+         rml:namespaceURL "http://www.tei-c.org/ns/1.0" ;
+       ];    
+     ] ;
+] ;
+rml:subjectMap [
+    rml:template "https://betamasaheft.eu/{/tei:TEI/@xml:id}" ;
+    rml:LogicalTargetMap [
+      a rml:LogicalTargetMap ;
+      rml:template "{/tei:TEI/@xml:id}.ttl" ;
+    ] ;    
+] ;
+rml:predicateObjectMap [
+    rml:predicate crm:P1_is_identified_by ;
+    rml:objectMap [
+        rml:reference "normalize-space(tei:idno)" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate crm:P55_has_current_location ;
+    rml:objectMap [
+        rml:reference "concat('https://betamasaheft.eu/', normalize-space(tei:repository/@ref))" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+.
+
+# mappings for handDesc elements
+<mapping-4> a rml:TriplesMap ;
+rml:logicalSource [
+    rml:source "input.xml" ;
+    rml:iterator "/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:physDesc/tei:handDesc" ;
+    rml:referenceFormulation [ a rml:XPathReferenceFormulation ;
+       rml:namespace [ a rml:Namespace ;
+         rml:namespacePrefix "tei" ;
+         rml:namespaceURL "http://www.tei-c.org/ns/1.0" ;
+       ];    
+     ] ;
+] ;
+rml:subjectMap [
+    rml:template "https://betamasaheft.eu/{concat(/tei:TEI/@xml:id, '/hand/', tei:handNote/@xml:id)}" ;
+    rml:LogicalTargetMap [
+      a rml:LogicalTargetMap ;
+      rml:template "{/tei:TEI/@xml:id}.ttl" ;
+    ] ;    
+] ;
+rml:predicateObjectMap [
+    rml:predicate dcterms:isPartOf ;
+    rml:objectMap [
+        rml:template "https://betamasaheft.eu/{/tei:TEI/@xml:id}" ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate rdf:type ;
+    rml:objectMap [
+        rml:constant <https://betamasaheft.eu/hand> ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate rdf:type ;
+    rml:objectMap [
+        rml:constant <https://w3id.org/sdc/ontology#UniMain> ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate rdf:type ;
+    rml:objectMap [
+        rml:template "https://betamasaheft.eu/{tei:handNote/@script}" ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+.
+
+# mappings for bindingDesc elements
+<mapping-5> a rml:TriplesMap ;
+rml:logicalSource [
+    rml:source "input.xml" ;
+    rml:iterator "/tei:TEI/tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:physDesc/tei:bindingDesc" ;
+    rml:referenceFormulation [ a rml:XPathReferenceFormulation ;
+       rml:namespace [ a rml:Namespace ;
+         rml:namespacePrefix "tei" ;
+         rml:namespaceURL "http://www.tei-c.org/ns/1.0" ;
+       ];    
+     ] ;
+] ;
+rml:subjectMap [
+    rml:template "https://betamasaheft.eu/{concat(/tei:TEI/@xml:id, '/binding/', tei:binding/tei:decoNote/@xml:id)}" ;
+    rml:LogicalTargetMap [
+      a rml:LogicalTargetMap ;
+      rml:template "{/tei:TEI/@xml:id}.ttl" ;
+    ] ;    
+] ;
+rml:predicateObjectMap [
+    rml:predicate dcterms:isPartOf ;
+    rml:objectMap [
+        rml:template "https://betamasaheft.eu/{/tei:TEI/@xml:id}" ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+rml:predicateObjectMap [
+    rml:predicate rdf:type ;
+    rml:objectMap [
+        rml:constant <https://betamasaheft.eu/binding> ;
+        rml:termType rml:IRI ;
+    ]
+] ;
+.
+
+# mappings for language elements
+<mapping-6> a rml:TriplesMap ;
+rml:logicalSource [
+    rml:source "input.xml" ;
+    rml:iterator "/tei:TEI/tei:teiHeader/tei:profileDesc/tei:langUsage/tei:language" ;
+    rml:referenceFormulation [ a rml:XPathReferenceFormulation ;
+       rml:namespace [ a rml:Namespace ;
+         rml:namespacePrefix "tei" ;
+         rml:namespaceURL "http://www.tei-c.org/ns/1.0" ;
+       ];    
+     ] ;
+] ;
+rml:subjectMap [
+    rml:template "https://betamasaheft.eu/{/tei:TEI/@xml:id}" ;
+    rml:LogicalTargetMap [
+      a rml:LogicalTargetMap ;
+      rml:template "{/tei:TEI/@xml:id}.ttl" ;
+    ] ;    
+] ;
+rml:predicateObjectMap [
+    rml:predicate dc:language ;
+    rml:objectMap [
+        rml:reference "@ident" ;
+        rml:termType xsd:string ;
+    ]
+] ;
+.

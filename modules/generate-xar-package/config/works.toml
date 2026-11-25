@@ -1,0 +1,8 @@
+#mapping_file_path = "/builds/claudius-teodorescu/bm-data-service/modules/deploy-rdf-xar/mapping/works.ttl"
+mapping_file_path = "/home/claudius/workspace/repositories/git/gitlab.com/claudius.teodorescu/philology/betamasaheft/bm-data-service/modules/deploy-rdf-xar/mapping/works.ttl"
+#output_file_path = "/builds/claudius-teodorescu/bm-data-service/public/turtle/works/"
+output_file_path = "/home/claudius/workspace/repositories/git/gitlab.com/claudius.teodorescu/philology/betamasaheft/bm-data-service/public/turtle/works/"
+
+[sources]
+#"input.xml" = "/builds/claudius-teodorescu/bm-data-service/public/expanded-main/works/**/*.xml"
+"input.xml" = "/home/claudius/workspace/repositories/git/gitlab.com/claudius.teodorescu/philology/betamasaheft/bm-data-service/public/expanded-main/works/**/*.xml"

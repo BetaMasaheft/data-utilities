@@ -1,0 +1,5 @@
+mapping_file_path = "/builds/claudius-teodorescu/bm-data-service/modules/deploy-rdf-xar/mapping/persons.ttl"
+output_file_path = "/builds/claudius-teodorescu/bm-data-service/public/turtle/persons/"
+
+[sources]
+"input.xml" = "/builds/claudius-teodorescu/bm-data-service/public/expanded-main/persons/**/*.xml"
