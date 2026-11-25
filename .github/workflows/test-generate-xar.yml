@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     container:
-          image: ghcr.io/betamasaheft/data-utilities
+          image: ghcr.io/betamasaheft/data-utilities:main
     permissions:
       contents: read
       packages: write
@@ -27,6 +27,6 @@ jobs:
         with:
           token: ${{ secrets.DEPLOY_PAT }}
           tag: "0.1"
-          files: bm-fonts.xar
+          files: ./public/bm-fonts.xar
           gzip: false
           allow_override: true
