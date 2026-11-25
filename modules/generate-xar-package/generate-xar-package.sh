@@ -10,6 +10,10 @@ output_turtle_dir=$public_dir/turtle
 
 xar_package_name=bm-rdf.xar
 
+ls -l $current_dir
+
+exit 0;
+
 mkdir -p $output_rdf_dir/{authority-files,institutions,manuscripts,narratives,persons,places,studies,works}
 mkdir -p $output_turtle_dir/{authority-files,institutions,manuscripts,narratives,persons,places,studies,works}
 
