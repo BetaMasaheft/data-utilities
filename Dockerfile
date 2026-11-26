@@ -14,7 +14,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" && apt-get update && apt-get install
 
 COPY --from=builder /x86_64-unknown-linux-musl/release/data-utilities /
 
-ENTRYPOINT ["./data-utilities"]
+ENTRYPOINT ["/data-utilities"]
 
 LABEL org.opencontainers.image.source=https://github.com/BetaMasaheft/data-utilities
 LABEL org.opencontainers.image.description="Docker container for BM data utilities"

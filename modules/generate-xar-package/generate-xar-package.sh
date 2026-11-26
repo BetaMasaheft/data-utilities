@@ -10,8 +10,6 @@ output_turtle_dir=$public_dir/turtle
 
 xar_package_name=bm-rdf.xar
 
-ls -l $current_dir
-
 mkdir -p $output_rdf_dir/{authority-files,institutions,manuscripts,narratives,persons,places,studies,works}
 mkdir -p $output_turtle_dir/{authority-files,institutions,manuscripts,narratives,persons,places,studies,works}
 
@@ -21,8 +19,13 @@ curl -L https://github.com/BetaMasaheft/expanded/archive/refs/heads/main.zip -o 
 echo "----- Unarchive the expanded data"
 cd $public_dir && unzip -q main.zip && cd ..
 
+ls -l $current_dir
+
 echo "----- Process the files in 'authority-files' folder"
 ./data-utilities conceptual-mapper $config_dir/authority-files.toml
+
+exit 0;
+
 ./data-utilities rdf-turtle-to-rdf-xml $output_turtle_dir/authority-files/ $output_rdf_dir/authority-files/
 
 echo "----- Process the files in 'institutions' folder"
