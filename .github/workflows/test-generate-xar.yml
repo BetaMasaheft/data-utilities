@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     container:
-          image: ghcr.io/betamasaheft/data-utilities:main
-          credentials:
-            username: ${{ github.actor }}
-            password: ${{ secrets.DEPLOY_PAT }}          
+      image: ghcr.io/betamasaheft/data-utilities:main
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.DEPLOY_PAT }}          
     permissions:
       contents: read
       packages: write
@@ -30,6 +30,6 @@ jobs:
         with:
           token: ${{ secrets.DEPLOY_PAT }}
           tag: "0.1"
-          files: ./public/bm-fonts.xar
+          files: ./public/bm-rdf.xar
           gzip: false
           allow_override: true
