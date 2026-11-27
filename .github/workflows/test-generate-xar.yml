@@ -24,7 +24,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
       - name: Generate the xar package
-        run: ./modules/generate-xar-package/generate-xar-package.sh
+        #run: ./modules/generate-xar-package/generate-xar-package.sh
+        run: ./.github/actions/generate-rdf-xar-action
       - name: Create the release
         uses: iamkubi/github-release@2.0
         with:
