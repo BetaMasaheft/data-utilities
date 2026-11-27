@@ -1,8 +1,8 @@
 #!/bin/sh -l
 
-echo "Hello $1"
+/data-utilities
 
-ls -l .
+
 
 time=$(date)
 echo "time=$time" >> $GITHUB_OUTPUT
